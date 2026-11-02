@@ -1,0 +1,51 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - 'native/**'
+      - 'index.html'
+      - 'styles.css'
+      - 'manifest.json'
+      - 'src/**'
+      - '.github/workflows/android.yml'
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: native
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: native/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: android-actions/setup-android@v3
+
+      - run: npm ci
+      - run: npm run build:web
+      - run: npx cap add android
+      - run: node scripts/patch-android.mjs
+      - run: npx cap sync android
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug
+        working-directory: native/android
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cogarcade-debug-apk
+          path: native/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error

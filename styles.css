@@ -1,0 +1,658 @@
+/*
+ * CogArcade — styles.css
+ * Hand-rolled utility classes (a tiny Tailwind-style subset) plus arcade polish.
+ * Only classes the app actually uses are defined, so there is no framework and no build step.
+ * Sections: base reset · animations · utilities 1-7 · arcade polish (3D push-buttons, tactile cards).
+ */
+
+/* ---------- Base reset ---------- */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border: 0 solid #334155;
+}
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: #020617
+    radial-gradient(120% 70% at 50% -10%, #3730a3 0%, #0f172a 48%, #020617 100%)
+    fixed;
+  color: #e2e8f0;
+  font-family:
+    ui-rounded, "SF Pro Rounded", "Fredoka", "Trebuchet MS",
+    "Hiragino Maru Gothic ProN", sans-serif;
+  letter-spacing: 0.015em;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+button,
+input {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+button {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+button:disabled {
+  cursor: default;
+}
+svg {
+  display: block;
+}
+b {
+  font-weight: bolder;
+}
+h2,
+pre {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+input::placeholder {
+  color: #64748b;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fl {
+  to {
+    transform: translate(9px, -11px);
+  }
+}
+@keyframes sh {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---------- Utilities 1. Layout (display, position, flex, grid, overflow) ---------- */
+.absolute {
+  position: absolute;
+}
+.aspect-square {
+  aspect-ratio: 1/1;
+}
+.bottom-0\.5 {
+  bottom: 0.125rem;
+}
+.content-center {
+  align-content: center;
+}
+.content-start {
+  align-content: flex-start;
+}
+.flex {
+  display: flex;
+}
+.flex-1 {
+  flex: 1 1 0%;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.grid {
+  display: grid;
+}
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.grid-rows-6 {
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+}
+.inset-0 {
+  inset: 0;
+}
+.items-center {
+  align-items: center;
+}
+.items-start {
+  align-items: flex-start;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.justify-center {
+  justify-content: center;
+}
+.left-1 {
+  left: 0.25rem;
+}
+.overflow-auto {
+  overflow: auto;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+.relative {
+  position: relative;
+}
+.right-1 {
+  right: 0.25rem;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.top-0\.5 {
+  top: 0.125rem;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.z-20 {
+  z-index: 20;
+}
+
+/* ---------- Utilities 2. Spacing (padding, margin, gap) ---------- */
+.gap-1 {
+  gap: 0.25rem;
+}
+.gap-1\.5 {
+  gap: 0.375rem;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-3 {
+  gap: 0.75rem;
+}
+.gap-4 {
+  gap: 1rem;
+}
+.gap-6 {
+  gap: 1.5rem;
+}
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mr-2 {
+  margin-right: 0.5rem;
+}
+.mt-1 {
+  margin-top: 0.25rem;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+.my-1\.5 {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+.p-1 {
+  padding: 0.25rem;
+}
+.p-1\.5 {
+  padding: 0.375rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-3 {
+  padding: 0.75rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+.px-1\.5 {
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
+}
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* ---------- Utilities 3. Sizing ---------- */
+.h-12 {
+  height: 3rem;
+}
+.h-2 {
+  height: 0.5rem;
+}
+.h-4 {
+  height: 1rem;
+}
+.h-7 {
+  height: 1.75rem;
+}
+.h-full {
+  height: 100%;
+}
+.max-w-\[420px\] {
+  max-width: 420px;
+}
+.max-w-\[540px\] {
+  max-width: 540px;
+}
+.min-h-0 {
+  min-height: 0;
+}
+.min-h-\[90px\] {
+  min-height: 90px;
+}
+.min-w-0 {
+  min-width: 0;
+}
+.min-w-\[3rem\] {
+  min-width: 3rem;
+}
+.w-1\/2 {
+  width: 50%;
+}
+.w-10 {
+  width: 2.5rem;
+}
+.w-11 {
+  width: 2.75rem;
+}
+.w-7 {
+  width: 1.75rem;
+}
+.w-\[44\%\] {
+  width: 44%;
+}
+.w-full {
+  width: 100%;
+}
+
+/* ---------- Utilities 4. Typography ---------- */
+.font-bold {
+  font-weight: 700;
+}
+.font-mono {
+  font-family: ui-monospace, Menlo, monospace;
+}
+.leading-7 {
+  line-height: 1.75rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+.text-7xl {
+  font-size: 4.5rem;
+  line-height: 1;
+}
+.text-\[10px\] {
+  font-size: 10px;
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.whitespace-pre {
+  white-space: pre;
+}
+
+/* ---------- Utilities 5. Colour (background, text, border, ring) ---------- */
+.bg-amber-400 {
+  background-color: #fbbf24;
+}
+.bg-amber-500\/10 {
+  background-color: rgba(245, 158, 11, 0.1);
+}
+.bg-amber-500\/15 {
+  background-color: rgba(245, 158, 11, 0.15);
+}
+.bg-amber-500\/20 {
+  background-color: rgba(245, 158, 11, 0.2);
+}
+.bg-amber-500\/30 {
+  background-color: rgba(245, 158, 11, 0.3);
+}
+.bg-emerald-600 {
+  background-color: #059669;
+}
+.bg-emerald-600\/20 {
+  background-color: rgba(5, 150, 105, 0.2);
+}
+.bg-emerald-600\/40 {
+  background-color: rgba(5, 150, 105, 0.4);
+}
+.bg-emerald-600\/50 {
+  background-color: rgba(5, 150, 105, 0.5);
+}
+.bg-emerald-600\/60 {
+  background-color: rgba(5, 150, 105, 0.6);
+}
+.bg-emerald-900 {
+  background-color: #064e3b;
+}
+.bg-indigo-500 {
+  background-color: #6366f1;
+}
+.bg-indigo-600 {
+  background-color: #4f46e5;
+}
+.bg-red-500 {
+  background-color: #ef4444;
+}
+.bg-red-600 {
+  background-color: #dc2626;
+}
+.bg-red-600\/60 {
+  background-color: rgba(220, 38, 38, 0.6);
+}
+.bg-red-900 {
+  background-color: #7f1d1d;
+}
+.bg-sky-400 {
+  background-color: #38bdf8;
+}
+.bg-sky-500 {
+  background-color: #0ea5e9;
+}
+.bg-sky-600 {
+  background-color: #0284c7;
+}
+.bg-slate-300 {
+  background-color: #cbd5e1;
+}
+.bg-slate-500 {
+  background-color: #64748b;
+}
+.bg-slate-700 {
+  background-color: #334155;
+}
+.bg-slate-800 {
+  background-color: #1e293b;
+}
+.bg-slate-800\/50 {
+  background-color: rgba(30, 41, 59, 0.5);
+}
+.bg-slate-900 {
+  background-color: #0f172a;
+}
+.bg-slate-950 {
+  background-color: #020617;
+}
+.bg-violet-600 {
+  background-color: #7c3aed;
+}
+.border-amber-400 {
+  border-color: #fbbf24;
+}
+.border-amber-500\/30 {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+.border-emerald-500 {
+  border-color: #10b981;
+}
+.border-red-500 {
+  border-color: #ef4444;
+}
+.border-sky-500 {
+  border-color: #0ea5e9;
+}
+.border-slate-600 {
+  border-color: #475569;
+}
+.border-slate-800 {
+  border-color: #1e293b;
+}
+.border-slate-950 {
+  border-color: #020617;
+}
+.ring-amber-300 {
+  --rc: #fcd34d;
+}
+.text-amber-300 {
+  color: #fcd34d;
+}
+.text-emerald-300 {
+  color: #6ee7b7;
+}
+.text-emerald-400 {
+  color: #34d399;
+}
+.text-fuchsia-400 {
+  color: #e879f9;
+}
+.text-indigo-300 {
+  color: #a5b4fc;
+}
+.text-red-400 {
+  color: #f87171;
+}
+.text-sky-300 {
+  color: #7dd3fc;
+}
+.text-slate-300 {
+  color: #cbd5e1;
+}
+.text-slate-400 {
+  color: #94a3b8;
+}
+.text-slate-500 {
+  color: #64748b;
+}
+.text-slate-700 {
+  color: #334155;
+}
+.text-white {
+  color: #fff;
+}
+.text-white\/70 {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- Utilities 6. Borders, radius, shadow, opacity, blur ---------- */
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.border {
+  border-width: 1px;
+}
+.border-2 {
+  border-width: 2px;
+}
+.opacity-40 {
+  opacity: 0.4;
+}
+.opacity-50 {
+  opacity: 0.5;
+}
+.opacity-60 {
+  opacity: 0.6;
+}
+.outline-none {
+  outline: 0;
+}
+.ring-2 {
+  box-shadow: 0 0 0 2px var(--rc, #3b82f6);
+}
+.rounded {
+  border-radius: 0.25rem;
+}
+.rounded-2xl {
+  border-radius: 1rem;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.rounded-md {
+  border-radius: 0.375rem;
+}
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- Utilities 7. State variants ---------- */
+.active\:bg-slate-700:active {
+  background-color: #334155;
+}
+.active\:bg-slate-800:active {
+  background-color: #1e293b;
+}
+.disabled\:opacity-30:disabled {
+  opacity: 0.3;
+}
+
+/* ---------- Arcade polish ---------- */
+.border-b-4 {
+  border-bottom-width: 4px;
+}
+.active\:translate-y-0\.5:active {
+  transform: translateY(0.125rem);
+}
+/* every action button (anything with a vertical-padding utility) is a chunky 3D push-button */
+button[class*="py-"] {
+  border-bottom: 4px solid rgba(0, 0, 0, 0.38);
+  transition:
+    transform 0.06s,
+    border-width 0.06s;
+}
+button[class*="py-"]:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+/* tactile cards */
+.bg-slate-900 {
+  background: linear-gradient(180deg, #1e293b, #0f172a);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 3px 0 rgba(0, 0, 0, 0.35);
+}
+.font-bold {
+  font-weight: 800;
+}
+/* sponsor slot collapses completely until an ad tag fills it */
+.adslot:empty {
+  display: none;
+}

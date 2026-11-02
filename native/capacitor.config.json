@@ -1,0 +1,8 @@
+{
+  "appId": "com.cogarcade.app",
+  "appName": "CogArcade",
+  "webDir": "www",
+  "backgroundColor": "#020617",
+  "server": { "androidScheme": "https" },
+  "android": { "allowMixedContent": false }
+}

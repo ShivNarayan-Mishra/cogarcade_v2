@@ -1,0 +1,6 @@
+node_modules/
+native/node_modules/
+native/www/
+native/android/
+*.zip
+.DS_Store

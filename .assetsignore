@@ -1,0 +1,6 @@
+# Files Cloudflare must NOT publish on the website (website = static files only).
+.github
+native
+.gitignore
+.assetsignore
+*.zip
