@@ -32,17 +32,19 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - uses: android-actions/setup-android@v3
-
-      - run: npm ci
-      - run: npm run build:web
-      - run: npx cap add android
-      - run: node scripts/patch-android.mjs
-      - run: npx cap sync android
+      - name: Install dependencies & sync Capacitor
+        run: |
+          npm ci
+          npm run build:web
+          npx cap add android
+          node scripts/patch-android.mjs
+          npx cap sync android
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug
         working-directory: native/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
 
       - uses: actions/upload-artifact@v4
         with:
